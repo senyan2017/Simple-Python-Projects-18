@@ -1,64 +1,59 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+"""
+Tic Tac Toe — two-player terminal game.
+
+Board management, win/draw detection, and move validation live in
+logic/tictactoe_logic.py.  This file only handles the display and
+the interactive input loop.
+"""
+
+from logic.tictactoe_logic import (
+    create_board, check_win, is_draw, is_valid_move,
+    make_move, next_player, PLAYERS,
+)
+from logic.input_utils import get_int, print_separator
 
 
-# Function to draw the game screen
 def draw_board(board):
+    """Print the board in a human-readable format."""
     print("-------------")
-    for i in range(3):
+    for row in board:
         print("|", end=" ")
-        for j in range(3):
-            print(board[i][j], "|", end=" ")
+        for cell in row:
+            print(cell, "|", end=" ")
         print("\n-------------")
 
-# Function to check game status
-def check_win(board, player):
-    
-    # Check rows and columns
-    for i in range(3):
-        if board[i][0] == board[i][1] == board[i][2] == player or board[0][i] == board[1][i] == board[2][i] == player:
-            return True
 
-    # Checking diameters
-    if board[0][0] == board[1][1] == board[2][2] == player or board[0][2] == board[1][1] == board[2][0] == player:
-        return True
-
-    return False
-
-# The main function of the game
-def play_game():
-    
-    # First, we clear the game screen
-    board = [[" " for _ in range(3)] for _ in range(3)]
-    
-    # Start the game with the turn of the first player (X)
-    current_player = "X"
+def main():
+    board = create_board()
+    current_player = PLAYERS[0]
 
     while True:
         draw_board(board)
-        
-        # Get the position of the current player
-        row = int(input("Row selection (0-2): "))
-        col = int(input("Column selection (0-2): "))
-        
-        # Checking the accuracy of the position and placing the player's token on the game board
-        if board[row][col] == " ":
-            board[row][col] = current_player
-        else:
-            print("This house has already been selected. Please try another position.")
+
+        row = get_int(f"Player {current_player} — row selection (0-2): ")
+        col = get_int(f"Player {current_player} — column selection (0-2): ")
+
+        if not is_valid_move(board, row, col):
+            print("This cell is already taken or out of range. Please try again.")
             continue
-        
-        # Checking the current player's win
+
+        board = make_move(board, row, col, current_player)
+
         if check_win(board, current_player):
             draw_board(board)
-            print("player", current_player, "you won!")
+            print(f"Player {current_player}, you won!")
             break
-            
-        # Change the player's turn    
-        current_player = "O" if current_player == "X" else "X"
 
-# Start the game
-play_game()
+        if is_draw(board):
+            draw_board(board)
+            print("It's a draw!")
+            break
 
+        current_player = next_player(current_player)
+
+
+if __name__ == "__main__":
+    main()

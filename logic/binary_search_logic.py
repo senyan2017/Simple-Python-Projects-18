@@ -1,0 +1,24 @@
+"""
+Pure binary-search algorithm.
+
+Works on any sorted sequence that supports indexing and len().
+"""
+
+
+def binary_search(arr, target):
+    """
+    Return the index of `target` in the sorted list `arr`, or -1 if not found.
+    """
+    low = 0
+    high = len(arr) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            low = mid + 1
+        else:
+            high = mid - 1
+
+    return -1

@@ -1,54 +1,61 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+"""
+Hangman — classic word-guessing game in the terminal.
+
+Word list, masked-word rendering and guess validation live in
+logic/hangman_logic.py.  This file only handles the game loop and display.
+"""
+
+from logic.hangman_logic import (
+    pick_random_word, get_masked_word, is_valid_guess,
+    is_word_guessed, DEFAULT_MAX_TRIES,
+)
+from logic.input_utils import print_separator
 
 
-import random
-
-def hangman():
-    word_list = ["apple", "banana", "cherry", "date", "elderberry", "fig", "grape"]
-    random_word = random.choice(word_list)
+def main():
+    secret = pick_random_word()
     guessed_letters = []
-    tries = 6
+    tries = DEFAULT_MAX_TRIES
 
     print("Welcome to Hangman!")
 
     while tries > 0:
-        guessed_word = ""
+        masked = get_masked_word(secret, guessed_letters)
 
-        for letter in random_word:
-            if letter in guessed_letters:
-                guessed_word += letter
-            else:
-                guessed_word += "_"
-
-        if guessed_word == random_word:
+        if is_word_guessed(secret, guessed_letters):
+            print(f"Word: {masked}")
             print("Congratulations! You won!")
             break
 
-        print("Word: ", end="")
-        for char in guessed_word:
-            print(char, end=" ")
-        print("\n")
+        print(f"Word: {' '.join(masked)}")
+        print(f"Tries remaining: {tries}")
 
         guess = input("Guess a letter: ").lower()
 
-        if guess.isalpha() and len(guess) == 1:
-            if guess in guessed_letters:
-                print("You already guessed that letter. Try again.")
-            elif guess in random_word:
-                print("Correct guess!")
-                guessed_letters.append(guess)
-            else:
-                tries -= 1
-                print("Wrong guess! You have", tries, "tries left.")
-                guessed_letters.append(guess)
-        else:
+        if not is_valid_guess(guess):
             print("Invalid input. Please enter a single letter.")
+            continue
+
+        if guess in guessed_letters:
+            print("You already guessed that letter. Try again.")
+            continue
+
+        guessed_letters.append(guess)
+
+        if guess in secret:
+            print("Correct guess!")
+        else:
+            tries -= 1
+            print(f"Wrong guess! You have {tries} tries left.")
+
+        print_separator()
 
     if tries == 0:
-        print("Game over! The word was:", random_word)
+        print(f"Game over! The word was: {secret}")
 
-hangman()
 
+if __name__ == "__main__":
+    main()

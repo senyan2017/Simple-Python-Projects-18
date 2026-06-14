@@ -1,25 +1,29 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+"""
+Dice Simulation — roll one or more dice and display the results.
+
+Rolling logic lives in logic/dice_logic.py.
+This file only handles the interactive prompt and output.
+"""
+
+from logic.dice_logic import simulate_dice, DEFAULT_SIDES
+from logic.input_utils import get_int
 
 
-import random
+def main():
+    num_rolls = get_int("Enter the number of dice rolls: ")
+    if num_rolls <= 0:
+        print("Please enter a positive number.")
+        return
 
-def roll_dice():
-    return random.randint(1,6)
+    results = simulate_dice(num_rolls, DEFAULT_SIDES)
 
-def simulate_dice(num_rolls):
-    results = []
-    for _ in range(num_rolls):
-        result = roll_dice()
-        results.append(result)
-    return results
+    print("The results of the dice roll:")
+    for i, result in enumerate(results, start=1):
+        print(f"  Roll {i}: {result}")
 
-num_rolls = int(input("Enter the number of dice rolls: "))
-dice_results = simulate_dice(num_rolls)
 
-print("The results of the dice roll:")
-for result in dice_results:
-    print(result)
-
+if __name__ == "__main__":
+    main()

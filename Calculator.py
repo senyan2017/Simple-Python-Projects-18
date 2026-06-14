@@ -1,43 +1,33 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+"""
+Calculator — interactive command-line calculator.
+
+Core arithmetic logic lives in logic/calculator_logic.py.
+This file only handles the user-facing menu and input flow.
+"""
+
+from logic.calculator_logic import OPERATIONS
+from logic.input_utils import get_float, get_choice
 
 
-def add(x,y):
-    return x + y
+def main():
+    print("Select Operation:")
+    print("1. Add")
+    print("2. Subtract")
+    print("3. Multiply")
+    print("4. Divide")
 
-def subtract(x,y):
-    return x - y
+    choice = get_choice("Enter choice (1-4): ", list(OPERATIONS.keys()))
 
-def multiply(x,y):
-    return x * y
+    num1 = get_float("Enter first number: ")
+    num2 = get_float("Enter second number: ")
 
-def divide(x,y):
-    if y != 0:
-        return x/y
-    else:
-        return "Error: Cannot divide by zero"
+    symbol, operation = OPERATIONS[choice]
+    result = operation(num1, num2)
+    print(f"{num1} {symbol} {num2} = {result}")
 
-print("Select Operation:")
-print("1. Add")
-print("2. Subtract")
-print("3. Multiply")
-print("4. Divide")
 
-choice = input("Enter choice (1-4):")
-
-num1 = float(input("Enter first number:"))
-num2 = float(input("Enter second number:"))
-
-if choice == '1':
-    print(num1, "+" ,num2, "=", add(num1,num2))
-elif choice == '2':
-    print(num1, "-" ,num2, "=", subtract(num1,num2))
-elif choice == '3':
-    print(num1, "*" ,num2, "=", multiply(num1,num2))
-elif choice == '4':
-    print(num1, "/" ,num2, "=", divide(num1,num2))
-else:
-    print("Invalid input")
-
+if __name__ == "__main__":
+    main()

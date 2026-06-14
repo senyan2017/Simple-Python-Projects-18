@@ -1,33 +1,31 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+"""
+Binary Search Algorithm — interactive demo of binary search.
+
+The search algorithm itself lives in logic/binary_search_logic.py.
+This file only handles the demo data and output.
+"""
+
+from logic.binary_search_logic import binary_search
 
 
-def binary_search(arr, target):
-    low = 0
-    high = len(arr) - 1
+def main():
+    # Demo data — same example as the original script
+    arr = [2, 4, 6, 8, 10]
+    target = 8
 
-    while low <= high:
-        mid = (low + high) // 2
+    print(f"Sorted list: {arr}")
+    print(f"Searching for: {target}")
 
-        if arr[mid] == target:
-            return mid
-        elif arr[mid] < target:
-            low = mid + 1
-        else:
-            high = mid - 1
+    result = binary_search(arr, target)
 
-    return -1
+    if result != -1:
+        print(f"The desired number is at index {result}.")
+    else:
+        print("The desired number does not exist in the list.")
 
-# An example of using the binary search algorithm
-arr = [2, 4, 6, 8, 10]
-target = 8
 
-result = binary_search(arr, target)
-
-if result != -1:
-    print("the desired number is in the index", result)
-else:
-    print("The desired number does not exist in the list.")
-
+if __name__ == "__main__":
+    main()

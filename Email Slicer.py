@@ -1,19 +1,26 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[ ]:
+"""
+Email Slicer — split an email address into username and domain.
+
+Slicing logic lives in logic/email_slicer_logic.py.
+This file only handles the user prompt and output.
+"""
+
+from logic.email_slicer_logic import slice_email
 
 
-email = input("Enter your email address: ")
+def main():
+    email = input("Enter your email address: ")
 
-# Find the index of the "@" symbol
-at_index = email.index("@")
+    try:
+        username, domain = slice_email(email)
+        print("Username:", username)
+        print("Domain:", domain)
+    except ValueError as e:
+        print(f"Error: {e}")
 
-# Slice the username and domain name from the email address
-username = email[:at_index]
-domain = email[at_index+1:]
 
-# Print the username and domain name
-print("Username:", username)
-print("Domain:", domain)
-
+if __name__ == "__main__":
+    main()

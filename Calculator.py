@@ -1,43 +1,29 @@
 #!/usr/bin/env python
 # coding: utf-8
+"""Command-line calculator. The arithmetic lives in core/calculator.py."""
 
-# In[ ]:
+from core.calculator import OPERATIONS
+from core.cli_helpers import prompt_choice, prompt_float
 
 
-def add(x,y):
-    return x + y
+def main():
+    print("Select Operation:")
+    print("1. Add")
+    print("2. Subtract")
+    print("3. Multiply")
+    print("4. Divide")
 
-def subtract(x,y):
-    return x - y
+    choice = prompt_choice("Enter choice (1-4):", OPERATIONS.keys())
+    num1 = prompt_float("Enter first number:")
+    num2 = prompt_float("Enter second number:")
 
-def multiply(x,y):
-    return x * y
+    symbol, operation = OPERATIONS[choice]
+    try:
+        result = operation(num1, num2)
+    except ZeroDivisionError:
+        result = "Error: Cannot divide by zero"
+    print(num1, symbol, num2, "=", result)
 
-def divide(x,y):
-    if y != 0:
-        return x/y
-    else:
-        return "Error: Cannot divide by zero"
 
-print("Select Operation:")
-print("1. Add")
-print("2. Subtract")
-print("3. Multiply")
-print("4. Divide")
-
-choice = input("Enter choice (1-4):")
-
-num1 = float(input("Enter first number:"))
-num2 = float(input("Enter second number:"))
-
-if choice == '1':
-    print(num1, "+" ,num2, "=", add(num1,num2))
-elif choice == '2':
-    print(num1, "-" ,num2, "=", subtract(num1,num2))
-elif choice == '3':
-    print(num1, "*" ,num2, "=", multiply(num1,num2))
-elif choice == '4':
-    print(num1, "/" ,num2, "=", divide(num1,num2))
-else:
-    print("Invalid input")
-
+if __name__ == "__main__":
+    main()

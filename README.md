@@ -1,6 +1,28 @@
 # Simple-Projects
 Python projects for beginners
 
+## How to run
+
+Every script still runs on its own, just like before. For example:
+
+    python "Calculator.py"
+    python "Password Generator.py"
+    python "Quiz Application.py"
+    python "Tic Tac Toe.py"
+
+## Project layout
+
+The reusable logic for the scripts above lives in the `core/` package
+(`calculator`, `password`, `quiz`, `tic_tac_toe`), with shared input helpers in
+`core/cli_helpers.py`. Importing those modules has no side effects, so the logic
+can be reused or tested on its own. Quiz questions and default settings sit next
+to their logic in `core/` rather than inside the run flow, so they are easy to
+change. The scripts in the root just handle the command-line interaction.
+
+Run the tests with:
+
+    python -m unittest discover
+
 ### 1) Binary Search Algorithm
 
 

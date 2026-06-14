@@ -1,19 +1,13 @@
 #!/usr/bin/env python
 # coding: utf-8
+"""Prints a random password. The generation logic lives in core/password.py."""
 
-# In[ ]:
+from core.password import generate_password
 
 
-import random
-import string
+def main():
+    print(generate_password())
 
-def generate_password(length):
-    characters = string.ascii_letters + string.digits + string.punctuation
-    
-    password = ''.join(random.choice(characters)for _ in range(length))
-    
-    return password
 
-password = generate_password(10)
-print(password)
-
+if __name__ == "__main__":
+    main()

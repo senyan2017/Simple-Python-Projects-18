@@ -23,12 +23,22 @@ questions = [
 
 def run_quiz(questions):
     score = 0
-    for question in questions:
-        answer = input(question.prompt)
-        print("--------------------------------------------------")
-        if answer == question.answer:
+    results = []
+    for i, question in enumerate(questions, 1):
+        raw_answer = input(question.prompt)
+        answer = raw_answer.strip().lower()
+        correct = answer == question.answer
+        if correct:
             score += 1
+        results.append((i, correct, question.answer, answer))
+        print("--------------------------------------------------")
+
     print("You answered {} of {} questions correctly.".format(score, len(questions)))
+    print("\n--- Results ---")
+    for idx, correct, correct_answer, user_answer in results:
+        status = "Correct" if correct else "Wrong"
+        display_answer = user_answer if user_answer else "(empty)"
+        print("Question {}: {} (your answer: {}, correct answer: {})".format(
+            idx, status, display_answer, correct_answer))
 
 run_quiz(questions)
-

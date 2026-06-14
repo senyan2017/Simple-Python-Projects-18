@@ -16,10 +16,15 @@ def simulate_dice(num_rolls):
         results.append(result)
     return results
 
-num_rolls = int(input("Enter the number of dice rolls: "))
-dice_results = simulate_dice(num_rolls)
 
-print("The results of the dice roll:")
-for result in dice_results:
-    print(result)
+def main():
+    num_rolls = int(input("Enter the number of dice rolls: "))
+    dice_results = simulate_dice(num_rolls)
 
+    print("The results of the dice roll:")
+    for result in dice_results:
+        print(result)
+
+
+if __name__ == "__main__":
+    main()

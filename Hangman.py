@@ -50,5 +50,10 @@ def hangman():
     if tries == 0:
         print("Game over! The word was:", random_word)
 
-hangman()
+def main():
+    hangman()
+
+
+if __name__ == "__main__":
+    main()
 

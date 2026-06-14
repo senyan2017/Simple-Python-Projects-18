@@ -59,6 +59,10 @@ def play_game():
         # Change the player's turn    
         current_player = "O" if current_player == "X" else "X"
 
-# Start the game
-play_game()
+def main():
+    play_game()
+
+
+if __name__ == "__main__":
+    main()
 

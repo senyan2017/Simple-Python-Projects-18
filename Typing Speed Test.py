@@ -26,5 +26,10 @@ def typing_speed_test():
     print("Total time:", round(total_time, 2), "seconds")
     print("Your typing speed is", round(speed, 2), "words per minute.")
 
-typing_speed_test()
+def main():
+    typing_speed_test()
+
+
+if __name__ == "__main__":
+    main()
 

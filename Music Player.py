@@ -4,67 +4,72 @@
 # In[ ]:
 
 
-from tkinter import *
-import pygame
-import os
+def main():
+    import tkinter as tk
+    from tkinter import filedialog
+    import pygame
+    import os
 
-root = Tk()
-root.title("Music Player")
-root.geometry("500x350")
+    root = tk.Tk()
+    root.title("Music Player")
+    root.geometry("500x350")
 
-pygame.mixer.init()
-
-
-def play():
-    pygame.mixer.music.load(listbox.get(ACTIVE))
-    var.set(listbox.get(ACTIVE))
-    pygame.mixer.music.play()
+    pygame.mixer.init()
 
 
-def stop():
-    pygame.mixer.music.stop()
+    def play():
+        pygame.mixer.music.load(listbox.get(tk.ACTIVE))
+        var.set(listbox.get(tk.ACTIVE))
+        pygame.mixer.music.play()
 
 
-def pause():
-    pygame.mixer.music.pause()
+    def stop():
+        pygame.mixer.music.stop()
 
 
-def resume():
-    pygame.mixer.music.unpause()
+    def pause():
+        pygame.mixer.music.pause()
 
 
-def directorychooser():
-    directory = filedialog.askdirectory()
-    os.chdir(directory)
-
-    for files in os.listdir(directory):
-        if files.endswith(".mp3"):
-            listbox.insert(END, files)
+    def resume():
+        pygame.mixer.music.unpause()
 
 
-var = StringVar()
-songtitle = Label(root, textvariable=var)
+    def directorychooser():
+        directory = filedialog.askdirectory()
+        os.chdir(directory)
 
-listbox = Listbox(root)
-listbox.pack()
+        for files in os.listdir(directory):
+            if files.endswith(".mp3"):
+                listbox.insert(tk.END, files)
 
-play_button = Button(root, text="Play", command=play)
-play_button.pack()
 
-stop_button = Button(root, text="Stop", command=stop)
-stop_button.pack()
+    var = tk.StringVar()
+    songtitle = tk.Label(root, textvariable=var)
 
-pause_button = Button(root, text="Pause", command=pause)
-pause_button.pack()
+    listbox = tk.Listbox(root)
+    listbox.pack()
 
-resume_button = Button(root, text="Resume", command=resume)
-resume_button.pack()
+    play_button = tk.Button(root, text="Play", command=play)
+    play_button.pack()
 
-directory_chooser_button = Button(
-    root, text="Choose Directory", command=directorychooser)
-directory_chooser_button.pack()
+    stop_button = tk.Button(root, text="Stop", command=stop)
+    stop_button.pack()
 
-songtitle.pack()
+    pause_button = tk.Button(root, text="Pause", command=pause)
+    pause_button.pack()
 
-root.mainloop()
+    resume_button = tk.Button(root, text="Resume", command=resume)
+    resume_button.pack()
 
+    directory_chooser_button = tk.Button(
+        root, text="Choose Directory", command=directorychooser)
+    directory_chooser_button.pack()
+
+    songtitle.pack()
+
+    root.mainloop()
+
+
+if __name__ == "__main__":
+    main()

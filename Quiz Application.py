@@ -30,5 +30,10 @@ def run_quiz(questions):
             score += 1
     print("You answered {} of {} questions correctly.".format(score, len(questions)))
 
-run_quiz(questions)
+def main():
+    run_quiz(questions)
+
+
+if __name__ == "__main__":
+    main()
 

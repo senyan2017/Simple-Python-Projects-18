@@ -20,14 +20,19 @@ def binary_search(arr, target):
 
     return -1
 
-# An example of using the binary search algorithm
-arr = [2, 4, 6, 8, 10]
-target = 8
 
-result = binary_search(arr, target)
+def main():
+    # An example of using the binary search algorithm
+    arr = [2, 4, 6, 8, 10]
+    target = 8
 
-if result != -1:
-    print("the desired number is in the index", result)
-else:
-    print("The desired number does not exist in the list.")
+    result = binary_search(arr, target)
 
+    if result != -1:
+        print("the desired number is in the index", result)
+    else:
+        print("The desired number does not exist in the list.")
+
+
+if __name__ == "__main__":
+    main()

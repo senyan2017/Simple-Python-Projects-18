@@ -14,6 +14,11 @@ def generate_password(length):
     
     return password
 
-password = generate_password(10)
-print(password)
+def main():
+    password = generate_password(10)
+    print(password)
+
+
+if __name__ == "__main__":
+    main()
 

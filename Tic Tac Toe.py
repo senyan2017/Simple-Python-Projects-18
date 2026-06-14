@@ -27,6 +27,23 @@ def check_win(board, player):
 
     return False
 
+# Function to check whether the board is completely filled
+def is_board_full(board):
+    return all(cell != " " for row in board for cell in row)
+
+# Function to read a board index (0-2) safely, re-prompting on bad input
+def get_valid_index(prompt):
+    while True:
+        value = input(prompt).strip()
+        try:
+            index = int(value)
+        except ValueError:
+            print("Invalid input. Please enter a whole number between 0 and 2.")
+            continue
+        if 0 <= index <= 2:
+            return index
+        print("Out of range. Please enter a number between 0 and 2.")
+
 # The main function of the game
 def play_game():
     
@@ -39,24 +56,30 @@ def play_game():
     while True:
         draw_board(board)
         
-        # Get the position of the current player
-        row = int(input("Row selection (0-2): "))
-        col = int(input("Column selection (0-2): "))
-        
+        # Get the position of the current player (validated, never crashes on bad input)
+        row = get_valid_index("Row selection (0-2): ")
+        col = get_valid_index("Column selection (0-2): ")
+
         # Checking the accuracy of the position and placing the player's token on the game board
         if board[row][col] == " ":
             board[row][col] = current_player
         else:
             print("This house has already been selected. Please try another position.")
             continue
-        
+
         # Checking the current player's win
         if check_win(board, current_player):
             draw_board(board)
             print("player", current_player, "you won!")
             break
-            
-        # Change the player's turn    
+
+        # Checking for a draw (board full and no winner)
+        if is_board_full(board):
+            draw_board(board)
+            print("It's a draw! The board is full.")
+            break
+
+        # Change the player's turn
         current_player = "O" if current_player == "X" else "X"
 
 # Start the game

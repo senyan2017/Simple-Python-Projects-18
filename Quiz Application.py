@@ -23,12 +23,23 @@ questions = [
 
 def run_quiz(questions):
     score = 0
-    for question in questions:
-        answer = input(question.prompt)
+    results = []
+    for index, question in enumerate(questions, start=1):
+        user_answer = input(question.prompt)
         print("--------------------------------------------------")
-        if answer == question.answer:
+        given = user_answer.strip()
+        is_correct = given.lower() == question.answer.strip().lower()
+        if is_correct:
             score += 1
+        results.append((index, is_correct, given, question.answer.strip()))
     print("You answered {} of {} questions correctly.".format(score, len(questions)))
+    print("==================================================")
+    print("Review:")
+    for index, is_correct, given, correct_answer in results:
+        status = "Correct" if is_correct else "Wrong"
+        shown = given if given else "(no answer)"
+        print("Question {}: {} | your answer: '{}' | correct answer: '{}'".format(
+            index, status, shown, correct_answer))
 
 run_quiz(questions)
 
